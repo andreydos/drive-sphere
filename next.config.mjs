@@ -1,13 +1,27 @@
-/** @type {import('next').NextConfig} */
-import runtimeCaching from "next-pwa/cache.js";
-import nextPWA from "next-pwa";
-const withPWA = nextPWA({
-    disable: process.env.NODE_ENV === "development",
-    dest: "public",
-    register: true,
-    skipWaiting: false,
-    runtimeCaching,
-});
-const nextConfig = withPWA({});
+import {
+    PHASE_DEVELOPMENT_SERVER,
+    PHASE_PRODUCTION_BUILD,
+} from "next/constants.js";
+
+/** @type {(phase: string, defaultConfig: import("next").NextConfig) => Promise<import("next").NextConfig>} */
+const nextConfig = async (phase) => {
+    /** @type {import("next").NextConfig} */
+
+    // future configurations
+    const nextConfig = {
+
+    };
+
+    if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
+        const withSerwist = (await import("@serwist/next")).default({
+            swSrc: "public/service-worker/app-worker.ts",
+            swDest: "public/sw.js",
+            reloadOnOnline: true,
+        });
+        return withSerwist(nextConfig);
+    }
+
+    return nextConfig;
+};
 
 export default nextConfig;
