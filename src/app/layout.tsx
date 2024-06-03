@@ -1,6 +1,5 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import Head from "next/head";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from '@vercel/analytics/react';
@@ -11,8 +10,14 @@ export const metadata: Metadata = {
   description: "For all who love driving",
   category: "website",
   generator: "Next.js",
-  // metadataBase: new URL('/'),
   manifest: "/manifest.json",
+  icons: {
+    apple: '/icons/apple-touch-icon.png',
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -22,11 +27,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        {/*<link rel="manifest" href="/manifest.json" />*/}
-        <link rel="apple-touch-icon" href="/icons/icon-512x512.png"></link>
-        <meta name="theme-color" content="#fff" />
-      </Head>
       <body className={inter.className}>
         {children}
         <SpeedInsights />
