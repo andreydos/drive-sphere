@@ -12,6 +12,12 @@ yarn dev
 pnpm dev
 # or
 bun dev
+
+# run tests
+npm run test 
+# update test screenshot for specific test file
+npm test -- --testPathPattern=home.snapshot.js -u
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
